@@ -6,6 +6,7 @@ import org.bukkit.permissions.PermissibleBase;
 
 import java.lang.reflect.Field;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.logging.Logger;
 
 /**
@@ -75,7 +76,15 @@ public abstract class PermissibleInjector {
 		// Attachments
 		Field attachmentField = PermissibleBase.class.getDeclaredField("attachments");
 		attachmentField.setAccessible(true);
-        ((List) attachmentField.get(newPerm)).addAll((List)attachmentField.get(old));
+		List newAttachment = ((List) attachmentField.get(newPerm));
+		List oldAttachment = ((List) attachmentField.get(old));
+
+		for (ListIterator<Object> it = oldAttachment.listIterator(); it.hasNext();) {
+			Object o = it.next();
+			if (!newAttachment.contains(o)) {
+				newAttachment.add(o);
+			}
+		}
 		newPerm.recalculatePermissions();
 	}
 
