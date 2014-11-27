@@ -123,5 +123,9 @@
             <id>pex-repo</id>
             <url>http://pex-repo.zachsthings.com</url>
         </repository>
+        <repository>
+            <id>codearts-repo</id>
+            <url>http://maven.codearts.jp</url>
+        </repository>
     </repositories>
 </project>
